@@ -33,6 +33,14 @@ public:
 			bytes.push_back((char*)(&val)[i]);
 	}
 
+	template<typename T>
+	imemstream &operator<<(imemstream& stream, T* val)
+	{
+		char* data = static_cast<char*>(val);
+		for (int i = 0; i < seizof(T); i++)
+			bytes.push_back(data[i]);
+	}
+
 	std::vector<char> get()
 	{
 		return bytes;
