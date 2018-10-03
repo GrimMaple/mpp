@@ -11,6 +11,7 @@
 */
 
 #include <memory>
+#include <cstring>
 
 namespace mpp
 {
@@ -27,17 +28,21 @@ public:
 	}
 
 	template<typename T>
-	omemstream &operator>> (omemstream& stream, T& val)
+	omemstream &operator>> (T& val)
 	{
-		val = reinterpret_cast<T>(data + pos);
+		val = *((T*)(data + pos));
 		pos += sizeof(T);
+
+		return *this;
 	}
 
 	template<typename T>
-	omemstream operator>> (omemstream& stream, T* val)
+	omemstream operator>> (T* val)
 	{
 		std::memcpy(val, data + pos, sizeof(T));
 		pos += sizeof(T);
+
+		return *this;
 	}
 
 private:

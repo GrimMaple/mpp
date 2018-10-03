@@ -27,18 +27,22 @@ public:
 	}
 
 	template<typename T>
-	imemstream &operator<<(imemstream& stream, T val)
+	imemstream &operator<<(T val)
 	{
 		for (int i = 0; i < sizeof(T); i++)
-			bytes.push_back((char*)(&val)[i]);
+			bytes.push_back(((char*)(&val))[i]);
+
+		return *this;
 	}
 
 	template<typename T>
-	imemstream &operator<<(imemstream& stream, T* val)
+	imemstream &operator<<(T* val)
 	{
 		char* data = static_cast<char*>(val);
-		for (int i = 0; i < seizof(T); i++)
+		for (int i = 0; i < sizeof(T); i++)
 			bytes.push_back(data[i]);
+
+		return *this;
 	}
 
 	std::vector<char> get()
