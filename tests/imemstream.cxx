@@ -18,6 +18,20 @@ TEST (imemstream, concurency)
     ASSERT_EQ((int)get[6], 0);
 }
 
+TEST(imemstream, vector_write)
+{
+	std::vector<char> data = {1, 2, 3, 4};
+	mpp::imemstream stream;
+
+	stream << data;
+
+	ASSERT_EQ(stream.get().size(), 4);
+	ASSERT_EQ(stream.get()[0], 1);
+	ASSERT_EQ(stream.get()[1], 2);
+	ASSERT_EQ(stream.get()[2], 3);
+	ASSERT_EQ(stream.get()[3], 4);
+}
+
 int main(int argc, char *argv[])
 {
     testing::InitGoogleTest(&argc, argv);

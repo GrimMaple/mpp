@@ -45,6 +45,14 @@ public:
 		return *this;
 	}
 
+	template<typename T>
+	imemstream &operator<<(std::vector<T> val)
+	{
+		for(auto i : val)
+			*this << i;
+	       return *this;	
+	}
+
 	std::vector<char> get()
 	{
 		return bytes;

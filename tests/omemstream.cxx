@@ -1,7 +1,7 @@
 #include <gtest/gtest.h>
 #include <mpp/memory/omemstream.hpp>
 
-TEST(imemstream, concurency)
+TEST(omemstream, concurency)
 {
 	std::vector<uint8_t> bytes{ 10, 11, 0, 14, 0, 0, 0 };
 	mpp::omemstream stream((char*)bytes.data(), 7);
