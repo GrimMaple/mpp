@@ -27,7 +27,7 @@ public:
 	}
 
 	template<typename T>
-	imemstream &operator<<(T val)
+	imemstream &operator<<(const T& val)
 	{
 		for (int i = 0; i < sizeof(T); i++)
 			bytes.push_back(((char*)(&val))[i]);
@@ -46,7 +46,7 @@ public:
 	}
 
 	template<typename T>
-	imemstream &operator<<(std::vector<T> val)
+	imemstream &operator<<(const std::vector<T>& val)
 	{
 		for(auto i : val)
 			*this << i;

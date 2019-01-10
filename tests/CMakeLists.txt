@@ -8,6 +8,7 @@ endmacro()
 
 CREATE_TEST(imemstream)
 CREATE_TEST(omemstream)
+CREATE_TEST(binary_writer)
 #add_executable(imemstream-test imemstream.cxx)
 #target_link_libraries(imemstream-test gtest_main)
 #add_test(NAME imemstream_tests COMMAND imemstream-test)
