@@ -17,21 +17,21 @@
 #include <vector>
 #include <cstdio>
 
+#include "file_stream.hpp"
+
 namespace mpp
 {
 
-class binary_writer
+class binary_writer : public file_stream
 {
 public:
     binary_writer() 
-        : f(nullptr),
-          isOpen(false)
+        : file_stream()
     {
     }
 
-    binary_writer(const char* fileName) : binary_writer()
+    binary_writer(const char* fileName) : file_stream(fileName, mode::wr)
     {
-        open(fileName);
     }
 
     binary_writer(const std::string& fileName) : binary_writer(fileName.c_str())
@@ -39,58 +39,40 @@ public:
 
     }
 
-    bool open(const std::string& fileName)
-    {
-        return open(fileName.c_str());
-    }
-
-    bool open(const char* fileName)
-    {
-        f = fopen(fileName, "wb");
-        return (isOpen = f != nullptr);
-    }
-
     template<typename T>
     binary_writer &operator<<(const T& left)
     {
-        fwrite(&left, sizeof(left), 1, f);
+        write(&left, sizeof(left), 1);
         return *this;
     }
 
     template<typename T>
     binary_writer &operator<<(T* left)
     {
-        fwrite(left, sizeof(T), 1, f);
+        write(left, sizeof(T), 1);
         return *this;
+    }
+
+    bool open(const char *fileName)
+    {
+	    return file_stream::open(fileName, mode::wr);
+    }
+
+    bool open(const std::string& fileName)
+    {
+	    return open(fileName.c_str());
     }
 
     template<typename T>
-    binary_writer &operator<<(std::vector<T> left)
+    binary_writer &operator<<(const std::vector<T>& left)
     {
-        fwrite(left.data(), sizeof(T), left.size(), f);
+        write(left.data(), sizeof(T), left.size());
         return *this;
-    }
-
-    void close()
-    {
-        if(isOpen)
-            fclose(f);
-        isOpen = false;
-    }
-
-    bool is_open() const
-    {
-        return isOpen;
     }
 
     ~binary_writer()
     {
-        close();
     }
-
-private:
-    FILE *f;
-    bool isOpen;
 };
 
 }

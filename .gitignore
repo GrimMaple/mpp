@@ -4,3 +4,4 @@ build/*
 CMake*
 !CMakeLists.txt
 CppProperties.json
+*.swp
