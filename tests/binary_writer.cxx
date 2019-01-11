@@ -31,13 +31,13 @@ TEST(binary_writer, vector_write)
 	mpp::binary_writer stream("test.vector");
 
 	stream << data;
-    stream.close();
+    	stream.close();
 
-    FILE *f = fopen("test.vector", "rb");
-    char get[256];
+	FILE* f = fopen("test.vector", "rb");
+    	char get[256];
 
-    fread(get, 1, 4, f);
-    fclose(f);
+    	fread(get, 1, 4, f);
+    	fclose(f);
 
 	ASSERT_EQ(get[0], 1);
 	ASSERT_EQ(get[1], 2);
