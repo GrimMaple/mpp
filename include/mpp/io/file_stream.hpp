@@ -103,7 +103,7 @@ public:
 	{
 		close();
 	}
-protected:
+
 	void write(const void* data, size_t size, size_t count)
 	{
 		fwrite(data, size, count, f);
@@ -113,6 +113,7 @@ protected:
 	{
 		fread(data, size, count, f);
 	}
+protected:
 
 	FILE *f;
 	bool isOpen;
