@@ -19,7 +19,7 @@ namespace mpp
 class omemstream
 {
 public:
-	omemstream(char* data, size_t sz)
+	omemstream(uint8_t* data, size_t sz)
 		: size(sz),
 		data(data),
 		pos(0)
@@ -48,7 +48,7 @@ public:
 private:
 	size_t size;
 	size_t pos;
-	char* data;
+	uint8_t* data;
 };
 
 }
