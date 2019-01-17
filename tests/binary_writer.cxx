@@ -11,7 +11,7 @@ TEST (binary_writer, concurency)
     stream.close();
     
     FILE *f = fopen("test.file", "rb");
-    char get[256];
+    uint8_t get[256];
 
     fread(get, 1, 7, f);
     fclose(f);
@@ -27,14 +27,14 @@ TEST (binary_writer, concurency)
 
 TEST(binary_writer, vector_write)
 {
-	std::vector<char> data = {1, 2, 3, 4};
+	std::vector<uint8_t> data = {1, 2, 3, 4};
 	mpp::binary_writer stream("test.vector");
 
 	stream << data;
     	stream.close();
 
 	FILE* f = fopen("test.vector", "rb");
-    	char get[256];
+    	uint8_t get[256];
 
     	fread(get, 1, 4, f);
     	fclose(f);

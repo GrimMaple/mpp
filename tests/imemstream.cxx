@@ -4,9 +4,9 @@
 TEST (imemstream, concurency) 
 {
     mpp::imemstream stream;
-    stream  << (char) 10
-            << (short) 11
-            << (int) 14;
+    stream  << (uint8_t) 10
+            << (int16_t) 11
+            << (int32_t) 14;
 
     auto get = stream.get();
     ASSERT_EQ((int)get[0], 10);
@@ -20,7 +20,7 @@ TEST (imemstream, concurency)
 
 TEST(imemstream, vector_write)
 {
-	std::vector<char> data = {1, 2, 3, 4};
+	std::vector<uint8_t> data = {1, 2, 3, 4};
 	mpp::imemstream stream;
 
 	stream << data;

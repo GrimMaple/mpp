@@ -48,7 +48,7 @@ public:
 	template<typename T>
 	binary_reader &operator>>(T& val)
 	{
-		char buffer[sizeof(T)];
+		uint8_t buffer[sizeof(T)];
 		read(buffer, sizeof(T), 1);
 		val = *((T*)buffer);
 		return *this;

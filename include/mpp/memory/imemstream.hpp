@@ -30,7 +30,7 @@ public:
 	imemstream &operator<<(const T& val)
 	{
 		for (int i = 0; i < sizeof(T); i++)
-			bytes.push_back(((char*)(&val))[i]);
+			bytes.push_back(((uint8_t*)(&val))[i]);
 
 		return *this;
 	}
@@ -38,7 +38,7 @@ public:
 	template<typename T>
 	imemstream &operator<<(T* val)
 	{
-		char* data = static_cast<char*>(val);
+		uint8_t* data = static_cast<uint8_t*>(val);
 		for (int i = 0; i < sizeof(T); i++)
 			bytes.push_back(data[i]);
 
@@ -53,13 +53,13 @@ public:
 	       return *this;	
 	}
 
-	std::vector<char> get()
+	std::vector<uint8_t> get()
 	{
 		return bytes;
 	}
 
 private:
-	std::vector<char> bytes;
+	std::vector<uint8_t> bytes;
 };
 
 }
