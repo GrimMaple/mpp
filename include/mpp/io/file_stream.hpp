@@ -80,6 +80,11 @@ public:
 		fseek(f, length, orig);
 	}
 
+	bool eof()
+	{
+		return feof(f);
+	}
+
 	void close()
 	{
 		if(isOpen)
