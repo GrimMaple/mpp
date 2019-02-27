@@ -45,6 +45,11 @@ public:
 		return *this;
 	}
 
+	bool is_eof()
+	{
+		return pos >= size;
+	}
+
 private:
 	size_t size;
 	size_t pos;
