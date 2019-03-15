@@ -3,8 +3,8 @@
 
 TEST (binary_reader, concurency)
 {
-	uint8_t arr[] = {0, 1, 2, 3, 4};
-	uint8_t test[] = {-1, 0, 0, 0, 0};
+	int8_t arr[] = {0, 1, 2, 3, 4};
+	int8_t test[] = {-1, 0, 0, 0, 0};
 
 	FILE *f = fopen("test.reader", "wb");
 	fwrite(arr, 1, 5, f);
