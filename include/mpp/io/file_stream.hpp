@@ -11,7 +11,7 @@
 */
 
 #ifndef _MPP_IO_FILE_STREAM_
-#define  _MPP_IO_FILE_STREAM_
+#define _MPP_IO_FILE_STREAM_
 
 #include <string>
 #include <cstdio>

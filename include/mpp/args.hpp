@@ -129,7 +129,7 @@ private:
 
     }
 #ifdef WIN32
-    static const char arg_start = "/";
+    static const char arg_start = '/';
 #else
     static const char arg_start = '-';
 #endif

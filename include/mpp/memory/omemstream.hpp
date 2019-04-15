@@ -10,6 +10,9 @@
 * -------------------------------------------------------------------------------------------------
 */
 
+#ifndef _MPP_IO_OMEMSTREAM_
+#define _MPP_IO_OMEMSTREAM_
+
 #include <memory>
 #include <cstring>
 
@@ -57,3 +60,5 @@ private:
 };
 
 }
+
+#endif
