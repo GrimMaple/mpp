@@ -1,5 +1,5 @@
-/* - delegate.hpp ---------------------------------------------------------------------------------
-* A wrap over for command line arguments parsing.
+/* - event.hpp ------------------------------------------------------------------------------------
+* Provides basic eventing mechanism on a subscription basis
 *
 * This file is a part of MPP project.
 *
@@ -16,14 +16,16 @@
 #include <unordered_map>
 #include <functional>
 
+#include "no_copy.hpp"
+
 namespace mpp
 {
 
 template<typename ... Args>
-class delegate
+class event : public no_copy
 {
 public:
-	delegate()
+	event()
 		: id(0)
 	{
 
@@ -33,14 +35,10 @@ public:
 	{
 	public:
 		token() : ref(nullptr) {}
-		//template<typename ... Args>
-		token(delegate <Args ...> *base)
-			: ref(base)
-		{
 
-		}
+		token(event <Args ...> *base)
+			: ref(base) {}
 
-		//template<typename ... Args>
 		token(token& other)
 			: i(other.i),
 			ref(other.ref)
@@ -53,7 +51,6 @@ public:
 			return other.id == id;
 		}
 
-		//template<typename ... Args>
 		void operator=(token& other)
 		{
 			i = other.i;
@@ -78,18 +75,13 @@ public:
 		}
 	private:
 		int i;
-		delegate<Args...> *ref;
-		friend class delegate<Args ... >;
+		event<Args...> *ref;
+		friend class event<Args ... >;
 	};
 	void operator()(Args... args)
 	{
 		for (auto& i : callbacks)
 			i.second(args...);
-	}
-
-	void unsubscribe(const token& tok)
-	{
-		callbacks.erase(tok.i);
 	}
 
 	token connect(const std::function<void(Args... args)>& func)
@@ -102,6 +94,11 @@ public:
 	}
 
 private:
+	void unsubscribe(const token& tok)
+	{
+		callbacks.erase(tok.i);
+	}
+
 	int id;
 	std::unordered_map<int, std::function<void(Args... args)>> callbacks;
 };
