@@ -10,8 +10,8 @@
 * -------------------------------------------------------------------------------------------------
 */
 
-#ifndef _MPP_ARGS_
-#define _MPP_ARGS_
+#ifndef _MPP_EVENT_
+#define _MPP_EVENT_
 
 #include <unordered_map>
 #include <functional>
@@ -25,11 +25,7 @@ template<typename ... Args>
 class event : public no_copy
 {
 public:
-	event()
-		: id(0)
-	{
-
-	}
+	event() = default;
 
 	class token
 	{
@@ -99,7 +95,7 @@ private:
 		callbacks.erase(tok.i);
 	}
 
-	int id;
+	int id = 0;
 	std::unordered_map<int, std::function<void(Args... args)>> callbacks;
 };
 
