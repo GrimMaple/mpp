@@ -25,6 +25,7 @@ public:
     const std::string& get_path() const { return path; }
     const std::string& get_name() const { return name; }
 protected:
+    fs_item() = default;
     fs_item(const std::string& name, const std::string& path)
         : path(path + name), name(name) {}
 
