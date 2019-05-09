@@ -15,6 +15,7 @@
 
 #include <string>
 #include <vector>
+#include <algorithm>
 
 #ifdef WIN32
 #include <Windows.h>
