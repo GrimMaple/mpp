@@ -7,7 +7,7 @@
 * This software is in public domain, distributed on "AS IS" basis, without technical support,
 * and with no warranty, epress or implied, as to its usefulness for any purpose.
 *
-* Copyright (c) Grim Maple @ 2018
+* Copyright (c) Grim Maple @ 2019
 * -------------------------------------------------------------------------------------------------
 */
 
