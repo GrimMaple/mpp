@@ -30,13 +30,23 @@ public:
         normalize_path();
     }
 
-    path operator+(const std::string& add) { return path(path_str + "/" + add); }
+    path operator+(const std::string& add) const { return path(path_str + "/" + add); }
     const path& operator+=(const std::string& add) 
     {
         path_str += ("/" + add);
         normalize_path();
 
         return *this;
+    }
+
+    std::string last_entry() const
+    {
+        auto end = path_str.end() - 1;
+        if(*end == '/') end--;
+        auto tmp = end;
+        while(*tmp != '/') tmp--;
+
+        return std::string(tmp+1, end+1);
     }
 
     const std::string& get() const { return path_str; }

@@ -25,6 +25,7 @@
 
 #include "fs_item.hpp"
 #include "file_info.hpp"
+#include "path.hpp"
 
 namespace mpp
 {
@@ -32,19 +33,10 @@ namespace mpp
 struct directory_info : public fs_item
 {
 public:
-    directory_info(const std::string& path)
+    directory_info(const path& p)
     {
-        auto it = path.end() - 1;
-        if(*it != '\\')
-            this->path = path + "\\";
-        else
-            this->path = path;
-        it = this->path.end() - 1;
-        while(*it == '\\') it--;
-        auto end = it;
-        while(*it != '\\') it--;
-        auto beg = it;
-        name = std::string(beg, end);
+        full_path = p;
+        name = p.last_entry();
     }
 
     std::vector<file_info> get_files()
@@ -74,7 +66,7 @@ private:
         TCHAR szDir[MAX_PATH];
         HANDLE hFind = INVALID_HANDLE_VALUE;
 
-        hFind = FindFirstFile((path + "\\*").c_str(), &ffd);
+        hFind = FindFirstFile((full_path.get() + "/*").c_str(), &ffd);
         if(hFind == INVALID_HANDLE_VALUE)
             return;
 
@@ -82,13 +74,13 @@ private:
         {
             if(ffd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)
             {
-                directories.push_back(directory_info(ffd.cFileName, path));
+                directories.push_back(directory_info(ffd.cFileName, full_path.get()));
             }
             else
             {
                 filesize.LowPart = ffd.nFileSizeLow;
                 filesize.HighPart = ffd.nFileSizeHigh;
-                files.push_back(file_info(ffd.cFileName, path, filesize.QuadPart));
+                files.push_back(file_info(ffd.cFileName, full_path.get(), filesize.QuadPart));
             }
         } while(FindNextFile(hFind, &ffd) != 0);
         FindClose(hFind);

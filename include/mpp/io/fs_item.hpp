@@ -16,20 +16,22 @@
 
 #include <string>
 
+#include "path.hpp"
+
 namespace mpp
 {
 
 struct fs_item
 {
 public:
-    const std::string& get_path() const { return path; }
+    const path& get_path() const { return full_path; }
     const std::string& get_name() const { return name; }
 protected:
     fs_item() = default;
-    fs_item(const std::string& name, const std::string& path)
-        : path(path + name), name(name) {}
+    fs_item(const std::string& name, const path& p)
+        : full_path(p + name), name(name) {}
 
-    std::string path;
+    path full_path;
     std::string name;
 };
 

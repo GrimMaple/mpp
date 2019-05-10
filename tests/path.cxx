@@ -26,6 +26,12 @@ TEST(path, concat)
     ASSERT_STREQ(res.get().c_str(), "C:/Windows/System32/drivers");
 }
 
+TEST(path, last_item)
+{
+    mpp::path a("C:\\Windows");
+    ASSERT_STREQ(a.last_entry().c_str(), "Windows");
+}
+
 int main(int argc, char *argv[])
 {
     testing::InitGoogleTest(&argc, argv);

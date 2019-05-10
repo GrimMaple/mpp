@@ -3,16 +3,32 @@
 
 #include <iostream>
 
-TEST(fs, read_directory)
+#ifdef WIN32
+TEST(fs, create)
 {
-    mpp::directory_info di("c:\\");
+    mpp::directory_info di(std::string("C:\\Windows"));
     bool has_self = false;
-    for(auto& i : di.get_files())
-        std::cout << i.get_path() << " -- " << i.get_size() << " bytes" << std::endl;
 
-    for(auto& i : di.get_directories())
-        std::cout<<i.get_path() << std::endl;
+    ASSERT_STREQ(di.get_path().get().c_str(), "C:/Windows");
+    ASSERT_STREQ(di.get_name().c_str(), "Windows");
+
+    auto dirs = di.get_directories();
+    bool found = false;
+    mpp::directory_info inf(std::string("."));
+    for(const auto& i : dirs)
+    {
+        if(i.get_name() == "System32")
+        {
+            inf = i;
+            found = true;
+            break;
+        }
+    }
+    ASSERT_TRUE(found);
+    ASSERT_STREQ(inf.get_name().c_str(), "System32");
+    ASSERT_STREQ(inf.get_path().get().c_str(), "C:/Windows/System32");
 }
+#endif
 
 int main(int argc, char *argv[])
 {
