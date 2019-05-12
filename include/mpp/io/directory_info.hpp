@@ -20,7 +20,8 @@
 #ifdef WIN32
 #include <Windows.h>
 #else
-
+#include <dirent.h>
+#include <sys/stat.h>
 #endif
 
 #include "fs_item.hpp"
@@ -89,6 +90,27 @@ private:
     void fill()
     {
         // TODO: Implement for linux
+        DIR *dir;
+        dirent *ent;
+        struct stat st;
+
+        dir = opendir(full_path.get().c_str());
+        while ((ent = readdir(dir)) != NULL)
+        {
+            const std::string file_name = ent->d_name;
+            const std::string full_file_name = full_path.get() + "/" + file_name;
+
+            if (stat(full_file_name.c_str(), &st) == -1)
+                continue;
+
+            const bool is_directory = (st.st_mode & S_IFDIR) != 0;
+
+            if (is_directory)
+                directories.push_back(directory_info(file_name, full_path.get()));
+            else
+                files.push_back(file_info(file_name, full_path.get(), st.st_size));
+        }
+        closedir(dir);
     }
 #endif
     std::vector<directory_info> directories;

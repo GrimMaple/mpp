@@ -54,9 +54,11 @@ public:
 private:
     void normalize_path()
     {
+        #ifdef WIN32
         // Normalize all wrong slashes to correct ones
         std::replace_if(path_str.begin(), path_str.end(), [](const auto& e){return e == '\\';}, '/');
-
+        #endif
+        
         // Remove all duplicating slashes
         for(auto it = path_str.begin(); it != path_str.end(); ++it)
         {
