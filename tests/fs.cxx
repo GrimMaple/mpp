@@ -12,7 +12,7 @@ TEST(fs, create)
     ASSERT_STREQ(di.get_path().get().c_str(), "C:/Windows");
     ASSERT_STREQ(di.get_name().c_str(), "Windows");
 
-    auto dirs = di.get_directories();System32
+    auto dirs = di.get_directories();
     bool found = false;
     mpp::directory_info inf(std::string("."));
     for(const auto& i : dirs)
