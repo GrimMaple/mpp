@@ -22,7 +22,11 @@ namespace mpp
 class path
 {
 public:
-    path() = default;
+    path()
+        : path(DEFAULT_PATH) {}
+
+    path(const char* p)
+        : path(std::string(p)) {}
 
     path(const std::string& p)
         : path_str(p)
@@ -49,6 +53,8 @@ public:
         return std::string(tmp+1, end+1);
     }
 
+    operator std::string() const { return get(); }
+
     const std::string& get() const { return path_str; }
 
 private:
@@ -71,6 +77,12 @@ private:
     }
 
     std::string path_str;
+
+    #ifdef WIN32
+    static constexpr const char* DEFAULT_PATH = "C:/";
+    #else
+    static constexpr const char* DEFAULT_PATH = "/";
+    #endif
 };
 
 }

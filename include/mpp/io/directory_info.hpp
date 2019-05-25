@@ -34,6 +34,9 @@ namespace mpp
 struct directory_info : public fs_item
 {
 public:
+    directory_info(const std::string& p)
+        : directory_info(path(p)) {}
+
     directory_info(const path& p)
     {
         full_path = p;
@@ -89,7 +92,6 @@ private:
 #else
     void fill()
     {
-        // TODO: Implement for linux
         DIR *dir;
         dirent *ent;
         struct stat st;

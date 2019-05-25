@@ -17,6 +17,23 @@ TEST(path, create)
     ASSERT_STREQ(c.get().c_str(), "/some/re/ally/test/stuff");
 }
 
+TEST(path, ctors)
+{
+    mpp::path a;
+    #ifdef WIN32
+    ASSERT_STREQ(a.get().c_str(), "C:/");
+    #else
+    ASSERT_STREQ(a.get().c_str(), "/");
+    #endif
+}
+
+TEST(path, conv)
+{
+    mpp::path a("/sample/path");
+    std::string test = a;
+    ASSERT_STREQ(test.c_str(), "/sample/path");
+}
+
 TEST(path, concat)
 {
     mpp::path a("C:/");
