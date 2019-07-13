@@ -14,6 +14,7 @@
 #define _MPP_ALGORITHM_
 
 #include <vector>
+#include <string>
 
 namespace mpp
 {
@@ -62,7 +63,7 @@ std::vector<std::vector<T>> split(It begin, It end, const T& ref)
     return ret;
 }
 
-std::vector<std::string> split(std::string::iterator begin, std::string::iterator end, const char ref)
+inline std::vector<std::string> split(std::string::iterator begin, std::string::iterator end, const char ref)
 {
     while(*begin == ref) // Skip all possible occurances of split element in the beginning
         begin++;
@@ -114,7 +115,7 @@ bool starts_with(It abegin, It aend, It bbegin, It bend)
     return true;
 }
 
-bool starts_with(std::string a, std::string b)
+inline bool starts_with(std::string a, std::string b)
 {
     auto abegin = a.begin();
     auto aend = a.end();
@@ -124,7 +125,7 @@ bool starts_with(std::string a, std::string b)
     return starts_with(abegin, aend, bbegin, bend);
 }
 
-bool starts_with(std::string::iterator abegin, std::string::iterator aend, std::string substr)
+inline bool starts_with(std::string::iterator abegin, std::string::iterator aend, std::string substr)
 {
     auto bbegin = substr.begin();
     auto bend = substr.end();
@@ -132,7 +133,7 @@ bool starts_with(std::string::iterator abegin, std::string::iterator aend, std::
     return starts_with(abegin, aend, bbegin, bend);
 }
 
-bool ends_with(std::string a, std::string b)
+inline bool ends_with(std::string a, std::string b)
 {
     auto abegin = a.rbegin();
     auto aend = a.rend();
@@ -142,7 +143,7 @@ bool ends_with(std::string a, std::string b)
     return starts_with(abegin, aend, bbegin, bend);
 }
 
-bool ends_with(std::string::reverse_iterator abegin, std::string::reverse_iterator aend, std::string substr)
+inline bool ends_with(std::string::reverse_iterator abegin, std::string::reverse_iterator aend, std::string substr)
 {
     auto bbegin = substr.rbegin();
     auto bend = substr.rend();
