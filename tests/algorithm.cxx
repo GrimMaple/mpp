@@ -52,6 +52,22 @@ TEST(algorithm, split_string)
     ASSERT_STREQ(res[3].c_str(), " suck");
 }
 
+TEST(algorithm, starts_with)
+{
+    std::string check = "Kokoro";
+    ASSERT_EQ(true, mpp::starts_with(check, "Ko"));
+    ASSERT_EQ(false, mpp::starts_with(check, "ko"));
+    ASSERT_EQ(false, mpp::starts_with(check, "Kokoro4o"));
+}
+
+TEST(algorithm, ends_with)
+{
+    std::string check = "Kokoro";
+    ASSERT_EQ(true, mpp::ends_with(check, "ro"));
+    ASSERT_EQ(false, mpp::ends_with(check, "rro"));
+    ASSERT_EQ(false, mpp::ends_with(check, "Okokoro"));
+}
+
 int main(int argc, char *argv[])
 {
     testing::InitGoogleTest(&argc, argv);

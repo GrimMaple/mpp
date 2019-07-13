@@ -100,6 +100,56 @@ std::vector<std::string> split(std::string::iterator begin, std::string::iterato
     return ret;
 }
 
+template<typename It>
+bool starts_with(It abegin, It aend, It bbegin, It bend)
+{
+    if(aend - abegin < bend - bbegin)
+        return false;
+    for(auto i = bbegin, j = abegin; i < bend; ++i, ++j)
+    {
+        if(*i != *j)
+            return false;
+    }
+
+    return true;
+}
+
+bool starts_with(std::string a, std::string b)
+{
+    auto abegin = a.begin();
+    auto aend = a.end();
+    auto bbegin = b.begin();
+    auto bend = b.end();
+
+    return starts_with(abegin, aend, bbegin, bend);
+}
+
+bool starts_with(std::string::iterator abegin, std::string::iterator aend, std::string substr)
+{
+    auto bbegin = substr.begin();
+    auto bend = substr.end();
+
+    return starts_with(abegin, aend, bbegin, bend);
+}
+
+bool ends_with(std::string a, std::string b)
+{
+    auto abegin = a.rbegin();
+    auto aend = a.rend();
+    auto bbegin = b.rbegin();
+    auto bend = b.rend();
+
+    return starts_with(abegin, aend, bbegin, bend);
+}
+
+bool ends_with(std::string::reverse_iterator abegin, std::string::reverse_iterator aend, std::string substr)
+{
+    auto bbegin = substr.rbegin();
+    auto bend = substr.rend();
+
+    return starts_with(abegin, aend, bbegin, bend);
+}
+
 }
 
 #endif
